@@ -30,34 +30,33 @@ namespace AllergiesWithDictionary
             this.score = score;
         }
         public void GetAllergens()
+        {
+            int indice = this.score;
+            if (this.score >= 256)
             {
-                int indice = this.score;
-                if (this.score >= 256)
+                Console.WriteLine($" {this.Name} is alergic to eggs.");
+            }
+            else
+            {
+                Console.WriteLine(this.Name + " is alergic to: ");
+                while (indice >= 1)
                 {
-                    Console.WriteLine($" {this.Name} is alergic to eggs.");
-                }
-                else
-                {
-                    Console.WriteLine(this.Name + " is alergic to: ");
-                    while (indice >= 1)
+                    int min = 0;
+                    string wanted = "";
+                    foreach (var pair in allergens)
                     {
-                        int min = 0;
-                        string wanted = "";
-                        foreach (var pair in allergens)
+                    //Console.WriteLine("val:  " + pair.Value + "minim: " + min + "indice: " + indice);
+                        if (pair.Value > min && pair.Value <= indice)
                         {
-                        //Console.WriteLine("val:  " + pair.Value + "minim: " + min + "indice: " + indice);
-                            if (pair.Value > min && pair.Value <= indice)
-                            {
-                                wanted = pair.Key;
-                                min = pair.Value;
-                            }
-
+                            wanted = pair.Key;
+                            min = pair.Value;
                         }
-                        Console.Write(wanted + " ");
-                        indice -= min;
-                }
+                    }
+                    Console.Write(wanted + " ");
+                    indice -= min;
                 }
             }
+        }
     }
 }
 
